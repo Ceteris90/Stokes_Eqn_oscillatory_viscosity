@@ -19,8 +19,8 @@ git clone https://github.com/Ceteris90/Stokes_Eqn_oscillatory_viscosity.git
 
 We want an out-of-source-build with build files in a folder parallel to the code:
 
-mkdir build-Demo_Dealii
-cd build-Demo_Dealii
+mkdir build-Stokes_Eqn_oscillatory_viscosity
+cd build-Stokes_Eqn_oscillatory_viscosity
 
 Then create the build files with cmake (including project files for Eclipse):
 

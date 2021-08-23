@@ -49,7 +49,7 @@ If you want to produce a faster reslease version type
 
 To run the executable with an example parameter file run
 
-    ./step-55
+    ./Stokes_Equation
     
 
 Open the vtk files with Paraview to see the result.

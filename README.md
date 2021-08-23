@@ -49,7 +49,7 @@ If you want to produce a faster reslease version type
 
 To run the executable with an example parameter file run
 
-    ./stepp-55
+    ./step-55
     
 
 Open the vtk files with Paraview to see the result.

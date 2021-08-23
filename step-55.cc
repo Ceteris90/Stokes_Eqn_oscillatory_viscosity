@@ -1,20 +1,4 @@
-/* ---------------------------------------------------------------------
- *
- * Copyright (C) 2016 - 2021 by the deal.II authors
- *
- * This file is part of the deal.II library.
- *
- * The deal.II library is free software; you can use it, redistribute
- * it, and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- * The full text of the license can be found in the file LICENSE.md at
- * the top level directory of deal.II.
- *
- * ---------------------------------------------------------------------
- *
- * Author: Timo Heister, Clemson University, 2016
- */
+/*Including the header files*/
 #include <deal.II/base/quadrature_lib.h>
 #include <deal.II/base/function.h>
 #include <deal.II/base/timer.h>
@@ -229,38 +213,21 @@ namespace Step55
   {
    public:
     
-     virtual double value(const Point<dim> &p,const unsigned int component=0) const override;
+     virtual double value(const Point<dim> &p,const unsigned int component=0) const override; // define the class of oscillary viscosity 
   };
   
   template <int dim>
   double Viscosity<dim>::value(const Point<dim> &p,const unsigned int /*component*/) const
   {
 	
-	const double pi=numbers::PI;
+	const double pi=numbers::PI;				// pi defines the number pi
   	constexpr double alpha = 0.1;
   	constexpr double beta  = 0.25;
   	const int k = 3;
-  	return alpha*(1+beta*sin(2*k*pi*p[0])*cos(2*k*pi*p[1]));
+  	return alpha*(1+beta*sin(2*k*pi*p[0])*cos(2*k*pi*p[1])); // define the oscillatory viscosity function going to be change 
 	
   }
-  
  
-  /*template <int dim>
-  double viscosity() 
-  {
-  	const double pi=numbers::PI;
-  	constexpr double alpha = 1e-3;
-  	constexpr double beta  = 1e-2;
-  	
-  	for (unsigned int k=0;k <10;++k)
-  		{
-  			for (unsigned int l=0;l<10;++l)
-  				{
-  			  		return (alpha*sin(2*k*pi)*cos(2*l*pi)+beta);
-  			        }
-  	        }
-  	
-  }*/
   
   template <int dim>
   class StokesProblem
@@ -291,6 +258,10 @@ namespace Step55
     ConditionalOStream pcout;
     TimerOutput        computing_timer;
   };
+	
+	
+	
+/* Definig the Stokes Problem*/
   template <int dim>
   StokesProblem<dim>::StokesProblem(unsigned int velocity_degree)
     : velocity_degree(velocity_degree)
@@ -309,12 +280,18 @@ namespace Step55
                       TimerOutput::summary,
                       TimerOutput::wall_times)
   {}
+	
+	
+  /* Definng the Grid generation function*/
   template <int dim>
   void StokesProblem<dim>::make_grid()
   {
     GridGenerator::hyper_cube(triangulation, -0.5, 1.5);
     triangulation.refine_global(3);
   }
+	
+
+  /* Setting up the systems*/
   template <int dim>
   void StokesProblem<dim>::setup_system()
   {
@@ -397,6 +374,8 @@ namespace Step55
                                      mpi_communicator);
     system_rhs.reinit(owned_partitioning, mpi_communicator);
   }
+	
+/*Helps in assembling the Stokes Equation*/
   template <int dim>
   void StokesProblem<dim>::assemble_system()
   {
@@ -484,6 +463,8 @@ namespace Step55
     preconditioner_matrix.compress(VectorOperation::add);
     system_rhs.compress(VectorOperation::add);
   }
+	
+/*solve the stokes problem using multiple processors*/
   template <int dim>
   void StokesProblem<dim>::solve()
   {
@@ -532,7 +513,8 @@ namespace Step55
     distributed_solution.block(1).add(-mean_pressure);
     locally_relevant_solution.block(1) = distributed_solution.block(1);
   }
-  
+
+  /*Refine of the Grid*/
   template <int dim>
   void StokesProblem<dim>::refine_grid()
   {
@@ -551,7 +533,7 @@ namespace Step55
     triangulation.execute_coarsening_and_refinement(); 
    }
    
-   
+   /*Outputting the Result*/
   template <int dim>
   void StokesProblem<dim>::output_results(const unsigned int cycle) const
   {
@@ -631,7 +613,7 @@ namespace Step55
       "./", "solution", cycle, mpi_communicator, 2);
   }
   
-  
+  /*The Main run function*/
   template <int dim>
   void StokesProblem<dim>::run()
   {

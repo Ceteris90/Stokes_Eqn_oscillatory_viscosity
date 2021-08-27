@@ -57,9 +57,12 @@ namespace LA
 #include <deal.II/numerics/error_estimator.h>
 #include <deal.II/numerics/vector_tools.h>
 
+//STL
 #include <cmath>
 #include <fstream>
 #include <iostream>
+
+
 namespace Stokes
 {
   using namespace dealii;
@@ -752,9 +755,12 @@ namespace Stokes
     data_out.write_vtu_with_pvtu_record(
       "./", "solution", cycle, mpi_communicator, 2);
   }
-
-
-  /*The Main run function*/
+  
+  
+  ///////////////////////////////
+  // The Main run function
+  ///////////////////////////////
+  
   template <int dim>
   void
   StokesProblem<dim>::run()

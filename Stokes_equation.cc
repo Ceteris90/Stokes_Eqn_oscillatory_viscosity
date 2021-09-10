@@ -188,22 +188,8 @@ namespace Step55
   void RightHandSide<dim>::vector_value(const Point<dim> & p,
                                         Vector<double> &  values) const
   {
-   
-   //Case 1: Non constant forcing term //
-    /////////////////////////////////////
-  values[0] = 1;
-  values[1] = -2;
-  values[2] = 0;
-
-   //Case 1: Linear forcing term //
-    /////////////////////////////////////
-
-   values[0] = -p[1];
-   values[1] = p[0];
-   values[2] = 0;
-
-    //Case 1: Non constant forcing term //
-    /////////////////////////////////////
+   //Case 1: First Test Problem Kovaszmay Flow//
+  // ///////////////////////////////////////////
 
 
     const double R_x = p[0];
@@ -223,6 +209,16 @@ namespace Step55
                   pi;
     values[2] = 0;
     
+	  
+   //Case 2:  Second Test Problem Wang Flow //
+    /////////////////////////////////////
+
+    
+    const double pi  = numbers::PI;
+
+    values[0] = 1-cos(10*p[0])*exp(-10*p[1]);
+    values[1] = (10/pi)*sin(10*p[0])*exp(-10*p[1]);
+    values[2] = 0;
   }
   
   template <int dim>

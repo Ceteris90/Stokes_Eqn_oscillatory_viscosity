@@ -232,12 +232,18 @@ namespace Step55
   template <int dim>
   double Viscosity<dim>::value(const Point<dim> &p,const unsigned int component) const
   {
-
-	  const double pi=numbers::PI;
+   /* const double pi=numbers::PI;
     constexpr double v_min = 0.01;
     constexpr double beta = 0;
   	const int k = 50;
-  	return v_min*( 1+ beta*sin(2*k*pi*p[0])*cos(2*k*pi*p[1]));
+  	return v_min*( 1+ beta*sin(2*k*pi*p[0])*cos(2*k*pi*p[1]));*/
+    const double pi=numbers::PI;
+    constexpr double v_min = 0.01;
+    constexpr double v_max = 10;
+    double v_mean = (v_min+v_max)/2;
+    constexpr double beta = 0.9;
+    const int k = 30;
+    return v_mean*( 1+ beta*(v_max-v_mean)*sin(2*k*pi*p[0])*cos(2*k*pi*p[1])); 
 	
   }
 

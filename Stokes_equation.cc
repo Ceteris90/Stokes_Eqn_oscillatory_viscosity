@@ -728,7 +728,7 @@ namespace Step55
     pcout << "Running using Trilinos." << std::endl;
 #endif
 
-    const unsigned int n_cycles = 9;
+    const unsigned int n_cycles = 15;
     for (unsigned int cycle = 0; cycle < n_cycles; ++cycle)
       {
         pcout << "Cycle " << cycle << ':' << std::endl;

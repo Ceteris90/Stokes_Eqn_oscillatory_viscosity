@@ -1,55 +1,81 @@
-# Stokes_Eqn_oscillatory_viscosity
-Numerical simulation of Stokes Equation with an oscillatory viscosity 
+# Stokes Equation with Oscillatory Viscosity
 
-This C++ code is used for Educational purpose of the step-7 example program of the Deal.ii library.
+This repository contains a C++ numerical simulation of the **Stokes Equation** featuring a spatially oscillatory viscosity profile. This project is an educational extension of the **step-7** example from the [deal.II library](https://www.dealii.org/).
 
-For this program you will need the following to run the program:
+## 📖 Overview
 
-    A Linux distribution 
-    A C/C++ compiler (see package repositories)
-    cmake v2.8.12 or higher
-    A working installation of Deal.ii v9.3.1 or higher
-    Paraview for the visualization of the results
+The simulation solves the incompressible Stokes equations for velocity $\mathbf{u}$ and pressure $p$:
 
+$$- \nabla \cdot ( \mu(\mathbf{x}) \nabla \mathbf{u} ) + \nabla p = \mathbf{f}$$
+$$\nabla \cdot \mathbf{u} = 0$$
 
-Building and running the program
+Where $\mu(\mathbf{x})$ represents the **oscillatory viscosity coefficient**. This setup is particularly useful for studying fluid behavior in heterogeneous media or varying thermal environments.
 
-To build the project together with Eclipse project files you must first clone the repository:
+---
 
+## 🛠 Prerequisites
 
- 
-    git clone https://github.com/Ceteris90/Stokes_Eqn_oscillatory_viscosity.git
+Before building, ensure you have the following installed:
 
-We want an out-of-source-build with build files in a folder parallel to the code:
+* **OS:** A Linux distribution (Ubuntu, Debian, Fedora, etc.)
+* **Compiler:** A C/C++ compiler (GCC or Clang)
+* **Build System:** [CMake](https://cmake.org/) v2.8.12 or higher
+* **Library:** [deal.II](https://www.dealii.org/) v9.3.1 or higher
+* **Visualization:** [ParaView](https://www.paraview.org/) to view `.vtk` output files
 
+---
 
+## 🚀 Building the Program
 
- 
-    mkdir build-Stokes_Eqn_oscillatory_viscosity
-    cd build-Stokes_Eqn_oscillatory_viscosity
+We recommend an **out-of-source build** to keep the repository clean.
 
+### 1. Clone the repository
+```bash
+git clone https://github.com/Ceteris90/Stokes_Eqn_oscillatory_viscosity.git
+```
 
-Then create the build files with cmake (including project files for Eclipse):
+### 2. Configure with CMake
+Create a build directory parallel to the source code and generate the build files (including Eclipse CDT project files if desired):
 
- 
-    cmake -DDEAL_II_DIR=/path/to/dealii -DCMAKE_ECLIPSE_MAKE_ARGUMENTS=-jN -G"Eclipse CDT4 - Unix Makefiles" ../Stokes_Eqn_oscillatory_viscosity
+```bash
+mkdir build-Stokes_Eqn_oscillatory_viscosity
+cd build-Stokes_Eqn_oscillatory_viscosity
 
-where N is the number of cores on your machine. You can now import an existing project in Eclipse (Eclipse).
+# Replace /path/to/dealii with your actual deal.II installation path
+# Replace N with the number of CPU cores
+cmake -DDEAL_II_DIR=/path/to/dealii -DCMAKE_ECLIPSE_MAKE_ARGUMENTS=-jN -G"Eclipse CDT4 - Unix Makefiles" ../Stokes_Eqn_oscillatory_viscosity
+```
 
-To generate the executable in debug mode type
+### 3. Compile
+You can compile in either **Debug** mode (for error checking) or **Release** mode (for speed).
 
+* **For Debug:**
+    ```bash
     make debug
     make -jN
-
-If you want to produce a faster reslease version type
-
-
+    ```
+* **For Release:**
+    ```bash
     make release
     make -jN
+    ```
 
-To run the executable with an example parameter file run
+---
 
-    ./Stokes_Equation
-    
+## 🏃 Running and Visualization
 
-Open the vtk files with Paraview to see the result.
+### Execution
+Run the solver using the default executable:
+```bash
+./Stokes_Equation
+```
+
+### Viewing Results
+The simulation produces `.vtk` files. To visualize the fluid flow:
+1.  Open **ParaView**.
+2.  Load the generated `.vtk` files.
+3.  Apply a **Glyph** filter to see velocity vectors or a **Surface** map for pressure distribution.
+
+---
+
+> **Note:** This code is primarily for educational purposes, demonstrating how to modify standard finite element examples to handle variable coefficients in fluid dynamics.
